@@ -27,5 +27,6 @@ export interface DayEntry {
 export interface AppSettings {
   remindersEnabled: boolean;
   hapticsEnabled: boolean;
+  soundsEnabled: boolean;
   darkMode: boolean;
 }

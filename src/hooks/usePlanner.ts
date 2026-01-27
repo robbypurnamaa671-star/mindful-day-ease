@@ -15,6 +15,7 @@ const createEmptyDay = (date: string): DayEntry => ({
 const defaultSettings: AppSettings = {
   remindersEnabled: true,
   hapticsEnabled: true,
+  soundsEnabled: true,
   darkMode: false,
 };
 
