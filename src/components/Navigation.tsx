@@ -1,10 +1,11 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Sun, Moon as MoonIcon, History, Settings } from 'lucide-react';
+import { Sun, Moon as MoonIcon, History, Settings, Wind } from 'lucide-react';
 import { useHaptics } from '@/hooks/useHaptics';
 
 const navItems = [
   { path: '/', icon: Sun, label: 'Today' },
+  { path: '/breathe', icon: Wind, label: 'Breathe' },
   { path: '/reflect', icon: MoonIcon, label: 'Reflect' },
   { path: '/history', icon: History, label: 'History' },
   { path: '/settings', icon: Settings, label: 'Settings' },
