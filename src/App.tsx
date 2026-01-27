@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import ReflectPage from "./pages/ReflectPage";
 import HistoryPage from "./pages/HistoryPage";
 import SettingsPage from "./pages/SettingsPage";
+import BreathePage from "./pages/BreathePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/reflect" element={<ReflectPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/breathe" element={<BreathePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Navigation />
