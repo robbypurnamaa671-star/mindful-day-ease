@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw } from 'lucide-react';
+import { useMeditationSounds } from '@/hooks/useMeditationSounds';
 
 type Phase = 'idle' | 'inhale' | 'hold' | 'exhale';
 
@@ -22,6 +23,9 @@ export const BreathingExercise = () => {
   const [phase, setPhase] = useState<Phase>('idle');
   const [timeLeft, setTimeLeft] = useState(0);
   const [cycleCount, setCycleCount] = useState(0);
+  const prevPhaseRef = useRef<Phase>('idle');
+  
+  const { playInhaleChime, playHoldChime, playExhaleChime, playCompletionBell } = useMeditationSounds();
 
   const getNextPhase = useCallback((currentPhase: Phase): Phase => {
     switch (currentPhase) {
@@ -41,10 +45,35 @@ export const BreathingExercise = () => {
     setPhase(nextPhase);
     setTimeLeft(PHASE_DURATIONS[nextPhase]);
     
-    if (nextPhase === 'inhale' && phase !== 'idle') {
+    if (nextPhase === 'inhale' && prevPhaseRef.current !== 'idle') {
       setCycleCount(prev => prev + 1);
     }
-  }, [phase]);
+    prevPhaseRef.current = nextPhase;
+  }, []);
+
+  // Play sounds on phase transitions
+  useEffect(() => {
+    if (!isRunning || phase === 'idle') return;
+    
+    switch (phase) {
+      case 'inhale':
+        playInhaleChime();
+        break;
+      case 'hold':
+        playHoldChime();
+        break;
+      case 'exhale':
+        playExhaleChime();
+        break;
+    }
+  }, [phase, isRunning, playInhaleChime, playHoldChime, playExhaleChime]);
+
+  // Play completion bell when cycles reach milestones
+  useEffect(() => {
+    if (cycleCount > 0 && cycleCount % 4 === 0) {
+      playCompletionBell();
+    }
+  }, [cycleCount, playCompletionBell]);
 
   useEffect(() => {
     if (!isRunning) return;

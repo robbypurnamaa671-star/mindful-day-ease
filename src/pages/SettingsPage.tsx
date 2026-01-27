@@ -2,7 +2,7 @@ import { usePlanner } from '@/hooks/usePlanner';
 import { useHaptics } from '@/hooks/useHaptics';
 import { PageHeader } from '@/components/PageHeader';
 import { cn } from '@/lib/utils';
-import { Bell, Vibrate, Moon, Sun, Smartphone, Heart } from 'lucide-react';
+import { Bell, Vibrate, Moon, Sun, Smartphone, Heart, Volume2 } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function SettingsPage() {
@@ -49,6 +49,14 @@ export default function SettingsPage() {
                 description="Soft vibrations on actions"
                 checked={settings.hapticsEnabled}
                 onChange={() => toggleSetting('hapticsEnabled')}
+              />
+
+              <SettingToggle
+                icon={Volume2}
+                label="Meditation Sounds"
+                description="Gentle chimes during breathing"
+                checked={settings.soundsEnabled}
+                onChange={() => toggleSetting('soundsEnabled')}
               />
 
               <SettingToggle
